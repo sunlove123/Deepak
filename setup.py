@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='deepak',
-      version='0.0.3',
+      version='0.0.9',
       description='test Installation Module',
       url='http://github.com/sunlove123',
       author='DeenaDhayalan',
