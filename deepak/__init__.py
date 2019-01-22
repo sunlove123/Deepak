@@ -128,7 +128,7 @@ def app_deploy(server_type):
         if os.path.exists(jbosspath+ "/jenkins.war"):
             subprocess.check_output(" rm -rf " +jbosspath+"/jenkins.war && rm -rf " +jbosspath.strip()+"/webapps/jenkins", shell=True)
 
-        jboss_status = subprocess.check_output("cp /var/.canvas/jenkins.war "+jbosspath.strip()+"/webapps", shell=True)
+        jboss_status = subprocess.check_output("cp /var/.canvas/jenkins.war "+jbosspath.strip()+"/standalone", shell=True)
         print 'War Deployed'
         return jbosspath
 
