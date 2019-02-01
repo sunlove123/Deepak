@@ -3,6 +3,7 @@ import sys
 sys.tracebacklimit=0
 import platform
 import subprocess
+import getpass
 
 def install():
     #name=raw_input('Enter your name : ')
@@ -15,11 +16,20 @@ def install():
     while (server_type != 'tomcat' and server_type != 'jboss'):
         server_type=server()
     app_server_path = app_deploy(server_type)
+    print "DB Connection Details for the application Server"
     print 'Application Deployed Lets proceed with DB Changes'
+    db_type=''
+    while (db_type != 'OracleSQL' and db_type != 'MySQL'):
+        db_type=dbselect()
+    dbase=db(server_type,db_type)
     return ('You have successfully Install Canvas!!! Ready to Rock and Roll')
 
 def remove():
      print "Remove is yet to Implement"
+     return ('Thanks for Choosing Canvas')
+
+def upgrade():
+     print "Upgrade is yet to Implement"
      return ('Thanks for Choosing Canvas')
 
 def server():
@@ -37,6 +47,26 @@ def server():
         if(val ==2):
             print 'You have choose JBOSS as your Application Server'
             return 'jboss'
+    else:
+        print 'Choose between 1 and 2'
+        print 'Please try again!!!'
+        return ''
+
+def dbselect():
+    db_value=raw_input('Enter DB Preference 1.OracleSQL 2.MySQL (input 1 or 2): ')
+    val = 0
+    try:
+        val = int(db_value)
+    except ValueError:
+        print("input is not valid, Try again!!!")
+        return ''
+    if(val ==1 or val==2):
+        if(val ==1):
+            print 'You have choose OracleSQL as your Database'
+            return 'OracleSQL'
+        if(val ==2):
+            print 'You have choose MySQL as your Database'
+            return 'MySQL'
     else:
         print 'Choose between 1 and 2'
         print 'Please try again!!!'
@@ -132,5 +162,12 @@ def app_deploy(server_type):
         print 'War Deployed'
         return jbosspath
 
-
-#install()
+def db(server_type,db_type):
+    print server_type +' :  '+ db_type
+    dbip=raw_input('Please provide the Database IP/FQDN: ')
+    dbport=raw_input('Please provide the Database Port: ')
+    dbuser=raw_input('Please provide the Database user: ')
+    dbpass= getpass.getpass('Please provide the Database password(password will not be displayed): ')
+    print dbpass
+    
+install()
